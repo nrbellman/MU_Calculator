@@ -22,17 +22,19 @@ input_field.grid(row = 0, column = 0, columnspan = 5)
 
 input_list = []
 def input_append(symbol):
-    """ Appends the chosen symbol to the input field. """
+    """ Appends the chosen symbol to the input field and input list. """
     input_list.append(symbol)
     input_field.insert("end", symbol)
     print(input_list)
 
 def input_clear():
+    """ Clears the input field and input list. """
     input_field.delete(0, "end")
     input_list.clear()
     print(input_list)
 
 def input_back():
+    """ Deletes the most recent entry from the input field and input list. """
     if (len(input_list) > 0):
         input_list.pop(len(input_list) - 1)
     input_field.delete(len(input_list),"end")
