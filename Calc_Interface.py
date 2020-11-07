@@ -15,9 +15,7 @@ ab = "#707070" # Button background color on click.
 af = "#f0f0f0" # Button foreground color on click.
 
 # Input Field Definition
-input_field = tk.Entry(font = if_font, width = 12, borderwidth = 5, justify = "right")
-
-# Input Field Display 
+input_field = tk.Entry(font = if_font, width = 12, borderwidth = 5, justify = "right") 
 input_field.grid(row = 0, column = 0, columnspan = 5)
 
 input_list = []
@@ -42,7 +40,6 @@ def input_back():
         print(input_list)
 
     input_field.delete(len(input_list),"end")
-    
 
 
 # One Button
