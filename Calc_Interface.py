@@ -29,16 +29,20 @@ def input_append(symbol):
 
 def input_clear():
     """ Clears the input field and input list. """
+    if (len(input_list) > 0):
+        input_list.clear()
+        print(input_list)
+    
     input_field.delete(0, "end")
-    input_list.clear()
-    print(input_list)
-
+    
 def input_back():
     """ Deletes the most recent entry from the input field and input list. """
     if (len(input_list) > 0):
         input_list.pop(len(input_list) - 1)
+        print(input_list)
+
     input_field.delete(len(input_list),"end")
-    print(input_list)
+    
 
 
 # One Button
