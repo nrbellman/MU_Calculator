@@ -41,28 +41,6 @@ def input_back():
 
     input_field.delete(len(input_list),"end")
 
-# def input_check(input_list):
-#     LWithoutR = False
-#     recentOperator = -1
-#     index = 0
-#     for x in input_list:
-#         if(x == "("):
-#             LWithoutR = True
-#         elif(x == ")" and LWithoutR == True):
-#             LWithoutR = False
-#         elif(x == ")" and LWithoutR == False):
-#             input_clear()
-#             input_field.insert("end", "Error: ) without (")
-#         if(not(isInt(x)) and x != "."):
-#             recentOperator = index
-#         if(x == "."):
-#             current_string = ""
-#             i = recentOperator + 1
-#             while((i < len(input_list) - 1) and (isInt(input_list) or input_list[i] == ".")):
-#                 current_string += input_list.pop(i)
-#             input_list.insert(i, current_string)
-#     index += 1 
-
 def use_input(input_list):
     input_list = concat(input_list)
     print(input_list)
