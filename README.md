@@ -6,7 +6,7 @@ Authors / Contributors:
 - [Evan Hanzelman](https://github.com/EHanz)
 
 ## How to launch:
-- Ensure your computer has the Python 3 interpereter installed.
+- Ensure your computer has the Python 3 interpreter installed.
 - In your terminal, navigate to the MU_Calculator directory.
 - In the MU_Calculator directory, run the command ```python MU_Calc.py``` and hit [ Enter ]
 
