@@ -9,7 +9,7 @@ def concat(input_list):
     newList = []
     current_string = ""
     # number_of_decimals = 0
-    fail = False
+    first_int = True
     index = 0
     new_index = 0
     while(index < len(input_list)):
@@ -25,11 +25,15 @@ def concat(input_list):
             #    input_field.insert("end", "Error: invalid decimal point")
             #    fail = True
             current_string += input_list[index]
+            if(not first_int):
+                new_index-=1
+            first_int = False
         # input a single operator
         if(isSymbol(input_list[index])):
             # append the previous string of number(s)
             if(current_string != ""):
                 newList.append(current_string)
+                first_int = True
                 # number_of_decimals = 0
                 current_string = ""
             # append the current operator
@@ -40,7 +44,7 @@ def concat(input_list):
             # if not given an operation
             if(input_list[index] in {"e", "pi"}):
                 if(index > 0):
-                    if(isInt(input_list[index - 1]) or input_list[index - 1] in {"e", "pi", "."}):
+                    if(isInt(input_list[index - 1]) or input_list[index - 1] == "."):
                         newList.insert(new_index, "*")
                         new_index += 1
                 if(index < len(input_list) - 1):           
@@ -64,7 +68,7 @@ def concat(input_list):
     # Make sure not to fill the new list with the first value if the decimal point check fails
     # But also dont forget to add any potential numbers after an operator
     # also prevents extra "" at the end
-    if(not fail and current_string != ""):
+    if(current_string != ""):
         newList.append(current_string)
     return newList
 
