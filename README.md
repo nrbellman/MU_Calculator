@@ -14,6 +14,8 @@ Authors / Contributors:
 - Input can be entered into the calculator via keyboard or via the buttons in the GUI.
 ### Keybindings (Mathematical):
 - Numbers -> [ 0 - 9 ]
+- pi -> [ p ]
+- e -> [ e ]
 - Addition ( + ) -> [ Shift ]+[ = ] 
 - Subtraction ( - ) -> [ - ]
 - Multiplication ( * ) -> [ Shift ]+[ 8 ] OR [NumPad * ]
