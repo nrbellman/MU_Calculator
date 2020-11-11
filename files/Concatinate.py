@@ -40,7 +40,7 @@ def concat(input_list):
             # if not given an operation
             if(input_list[index] in {"e", "pi"}):
                 if(index > 0):
-                    if(isInt(input_list[index - 1]) or input_list[index - 1] in {"e", "pi", "."}):
+                    if(isInt(input_list[index - 1]) or input_list[index - 1] == "."):
                         newList.insert(new_index, "*")
                         new_index += 1
                 if(index < len(input_list) - 1):           
