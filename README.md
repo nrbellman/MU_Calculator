@@ -4,7 +4,7 @@ A simple calculator built with Python 3 and tkinter.
 Authors / Contributors:
 - [Nicholas Bellman](https://github.com/nrbellman)
 - [Evan Hanzelman](https://github.com/EHanz)
-- [Max Harris](https://github.com/mharr)
+- [Max Harris](https://github.com/mharr1)
 
 ## How to launch:
 - Ensure your computer has the Python 3 interpreter installed.
