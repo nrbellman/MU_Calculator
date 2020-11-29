@@ -1,6 +1,5 @@
 from math import e, pi
 import operator
-import re
 
 class NumberNode:
     def __init__(self, value):
