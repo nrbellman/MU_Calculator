@@ -9,7 +9,7 @@ class NumberNode:
         if(value == 'PI'):
             self.value = pi
         else:
-            self.value = [float(index) for index in re.findall(r'-?\d+\.?\d*', value)][0]
+            self.value = float(value[7:len(value) - 1])
 
 class ExpressionNode:
     def __init__(self, op, left, right, precedence):
