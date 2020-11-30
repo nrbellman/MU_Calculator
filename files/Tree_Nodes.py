@@ -1,5 +1,6 @@
 from math import e, pi
 import operator
+import re
 
 class NumberNode:
     def __init__(self, value):
@@ -11,16 +12,16 @@ class NumberNode:
             self.value = float(value[7:len(value) - 1])
 
 class ExpressionNode:
-    def __init__(self, op, left, right, precedence):
+    def __init__(self, op, left, right):
         if(op == 'PLUS'):
-            op = operator.add
+            self.op = operator.add
         if(op == 'MINUS'):
-            op = operator.sub
+            self.op = operator.sub
         if(op == 'TIMES'):
-            op = operator.mul
+            self.op = operator.mul
         if(op == 'DIVIDES'):
-            op = operator.truediv
+            self.op = operator.truediv
         if(op == 'POWER'):
-            op = operator.pow  
+            self.op = operator.pow  
         self.left = left
         self.right = right
