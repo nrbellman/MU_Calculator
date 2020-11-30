@@ -4,12 +4,7 @@ import re
 
 class NumberNode:
     def __init__(self, value):
-        if(value == 'E'):
-            self.value = e
-        if(value == 'PI'):
-            self.value = pi
-        else:
-            self.value = float(value[7:len(value) - 1])
+        self.value = value
 
 class ExpressionNode:
     def __init__(self, op, left, right):
