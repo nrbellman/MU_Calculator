@@ -1,7 +1,10 @@
+# Returns whether the input is valid or not
+# Displays errors so direct implementation into calc_interface may be necessary
 def validate(lexeme_list):
         lparen_present = 0
         prev_isop = False
         prev_isLparen = False
+        prev_item = ""
         for index in lexeme_list:
             if(index == "RPAREN"):
                 if(lparen_present == 0):
@@ -10,11 +13,15 @@ def validate(lexeme_list):
                     lparen_present -= 1
             if(index == "LPAREN"):
                 lparen_present += 1
-            if(not (index in {"LPAREN", "RPAREN", "PLUS", "MINUS", "TIMES", "DIVIDES", "POWER", "E", "PI"})):
+            if(index[0:6] == "NUMBER"):
                 try:
                     float(index[7:len(index) - 1])
                 except ValueError:
                     return "Invalid number entered"
+            if(prev_item == "RPAREN" and index[0:6] == "NUMBER"):
+                return "Please specify operator after RPAREN"
+            if(index == "LPAREN" and prev_item[0:6] == "NUMBER"):
+                return "Please specify operator before LPAREN"
             if(index in {"PLUS", "MINUS", "TIMES", "DIVIDES", "POWER"}):
                 if(prev_isop == True):
                     return "Operator cannot follow Operator"
@@ -30,6 +37,7 @@ def validate(lexeme_list):
                     return "Operator cannot follow LPAREN"
             elif(index != "LPAREN"):
                 prev_isLparen = False
+            prev_item = index
         if(lparen_present != 0):
             return "Unclosed parens"
         return "passed"
