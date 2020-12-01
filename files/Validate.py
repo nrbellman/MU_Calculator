@@ -22,6 +22,10 @@ def validate(lexeme_list):
                 return "Please specify operator after RPAREN"
             if(index == "LPAREN" and prev_item[0:6] == "NUMBER"):
                 return "Please specify operator before LPAREN"
+            if(prev_item[0:6] == "NUMBER" and (index == "PI" or index == "E")):
+                return "Please specify operator between numbers and symbols"
+            if(index[0:6] == "NUMBER" and (prev_item == "PI" or prev_item == "E")):
+                return "Please specify operator between numbers and symbols"
             if(index in {"PLUS", "MINUS", "TIMES", "DIVIDES", "POWER"}):
                 if(prev_isop == True):
                     return "Operator cannot follow Operator"

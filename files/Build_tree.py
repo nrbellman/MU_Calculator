@@ -1,5 +1,4 @@
-from Tree_Nodes import *
-from Evaluate import *
+from files.Tree_Nodes import *
 
 def expr(lexeme_list, pos, prev_precedence):
     lhs = term(lexeme_list, pos, prev_precedence)
@@ -7,7 +6,7 @@ def expr(lexeme_list, pos, prev_precedence):
         pos += 1
         op = lexeme_list[pos]
         current_precedence = precedence(op)
-        if(current_precedence <= prev_precedence):
+        if(current_precedence < prev_precedence):
             break
         if(association(op) == "left"):
             rhs = expr(lexeme_list, pos + 1, current_precedence + 1)
@@ -42,3 +41,6 @@ def association(op):
         return "left"
     if(op in {"POWER"}):
         return "right"
+
+def build_tree(lexeme_list):
+    return expr(lexeme_list, 0, -1)

@@ -1,4 +1,4 @@
-from Tree_Nodes import *
+from files.Tree_Nodes import *
 
 def evaluate(node):
     if(isinstance(node, ExpressionNode)):
