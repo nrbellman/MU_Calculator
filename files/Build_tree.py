@@ -1,18 +1,13 @@
 from Tree_Nodes import *
 from Evaluate import *
 
-
-test = ["NUMBER(5)", "PLUS", "NUMBER(3)", "TIMES", "NUMBER(4)"]
-
-
-
 def expr(lexeme_list, pos, prev_precedence):
     lhs = term(lexeme_list, pos, prev_precedence)
     while(pos < len(lexeme_list) - 1):
         pos += 1
         op = lexeme_list[pos]
         current_precedence = precedence(op)
-        if(current_precedence < prev_precedence):
+        if(current_precedence <= prev_precedence):
             break
         if(association(op) == "left"):
             rhs = expr(lexeme_list, pos + 1, current_precedence + 1)
