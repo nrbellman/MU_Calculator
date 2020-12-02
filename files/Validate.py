@@ -42,7 +42,7 @@ def validate(lexeme_list):
             elif(index != "LPAREN"):
                 prev_isLparen = False
             prev_item = index
-        if(not(prev_item[0:6] in {"NUMBER", "E", "PI"})):
+        if(not(prev_item[0:6] in {"NUMBER", "E", "PI", "RPAREN"})):
             return "Cannot end with operator"
         if(lparen_present != 0):
             return "Unclosed parens"
