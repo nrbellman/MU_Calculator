@@ -1,32 +1,44 @@
 from files.Tree_Nodes import *
+from queue import LifoQueue
 
 def expr(lexeme_list, pos, prev_precedence):
     lhs = term(lexeme_list, pos, prev_precedence)
+    if(pos != lhs[1]):
+        pos = lhs[1]
+    lhs = lhs[0]
     while(pos < len(lexeme_list) - 1):
         pos += 1
         op = lexeme_list[pos]
-        current_precedence = precedence(op)
-        if(current_precedence < prev_precedence):
-            break
-        if(association(op) == "left"):
-            rhs = expr(lexeme_list, pos + 1, current_precedence + 1)
-        else:
-            rhs = expr(lexeme_list, pos + 1, current_precedence)
+        print(op)
         pos += 1
-        lhs = ExpressionNode(op, lhs, rhs)
+        if(op == "RPAREN"):
+            break
+        else:
+            current_precedence = precedence(op)
+            if(current_precedence < prev_precedence):
+                break
+            if(association(op) == "left"):
+                rhs = expr(lexeme_list, pos, current_precedence + 1)
+            else:
+                rhs = expr(lexeme_list, pos, current_precedence)
+            lhs = ExpressionNode(op, lhs, rhs)
     return lhs
 
 
 def term(lexeme_list, pos, current_precedence):
     value = lexeme_list[pos]
     if(value[0:6] == "NUMBER"):
-        return NumberNode(float(value[7:len(value) - 1]))
+        return NumberNode(float(value[7:len(value) - 1])), pos
     elif(value == "PI"):
-        return NumberNode(pi)
+        return NumberNode(pi), pos
     elif(value == "E"):
-        return NumberNode(e)
-    #elif(value == "LPAREN"):
-    #    return expr(lexeme_list, pos, current_precedence)
+        return NumberNode(e), pos
+    elif(value == "LPAREN"):
+        posb = pos
+        while(lexeme_list[pos] != "RPAREN"):
+            pos += 1
+        return expr(lexeme_list, posb + 1, -1), pos
+        
 
 def precedence(op):
     if(op in {"PLUS", "MINUS"}):
