@@ -3,20 +3,14 @@ from queue import LifoQueue
 
 def expr(lexeme_list, pos, prev_precedence):
     lhs = term(lexeme_list, pos, prev_precedence)
-    if(pos != lhs[1]):
-        pos = lhs[1]
+    pos = lhs[1]
     lhs = lhs[0]
-    while(pos < len(lexeme_list) - 1):
-        pos += 1
+    pos += 1
+    if(pos < len(lexeme_list) and lexeme_list[pos] != "RPAREN"):
         op = lexeme_list[pos]
-        print(op)
         pos += 1
-        if(op == "RPAREN"):
-            break
-        else:
-            current_precedence = precedence(op)
-            if(current_precedence < prev_precedence):
-                break
+        current_precedence = precedence(op)
+        if(not(current_precedence < prev_precedence)):
             if(association(op) == "left"):
                 rhs = expr(lexeme_list, pos, current_precedence + 1)
             else:
@@ -34,10 +28,10 @@ def term(lexeme_list, pos, current_precedence):
     elif(value == "E"):
         return NumberNode(e), pos
     elif(value == "LPAREN"):
-        posb = pos
-        while(lexeme_list[pos] != "RPAREN"):
-            pos += 1
-        return expr(lexeme_list, posb + 1, -1), pos
+        post_pos = pos
+        while(lexeme_list[post_pos] != "RPAREN"):
+            post_pos += 1
+        return expr(lexeme_list, pos + 1, -1), post_pos
         
 
 def precedence(op):
