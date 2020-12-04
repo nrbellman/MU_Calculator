@@ -6,16 +6,18 @@ def expr(lexeme_list, pos, prev_precedence):
     pos = lhs[1]
     lhs = lhs[0]
     pos += 1
-    if(pos < len(lexeme_list) and lexeme_list[pos] != "RPAREN"):
+    while(pos < len(lexeme_list) and lexeme_list[pos] != "RPAREN"):
         op = lexeme_list[pos]
         pos += 1
         current_precedence = precedence(op)
-        if(not(current_precedence < prev_precedence)):
-            if(association(op) == "left"):
-                rhs = expr(lexeme_list, pos, current_precedence + 1)
-            else:
-                rhs = expr(lexeme_list, pos, current_precedence)
-            lhs = ExpressionNode(op, lhs, rhs)
+        if(current_precedence < prev_precedence):
+            break
+        if(association(op) == "left"):
+            rhs = expr(lexeme_list, pos, current_precedence + 1)
+        else:
+            rhs = expr(lexeme_list, pos, current_precedence)
+        lhs = ExpressionNode(op, lhs, rhs)
+        pos += 1
     return lhs
 
 
