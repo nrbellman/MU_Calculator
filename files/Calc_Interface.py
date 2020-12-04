@@ -168,7 +168,10 @@ if __name__ != "__main__":
             is_answered = True
         else:
             lexeme_tree = build_tree(lexeme_list)
-            answer = evaluate(lexeme_tree)
+            try:
+                answer = evaluate(lexeme_tree)
+            except ZeroDivisionError:
+                answer = "Cannot divide by zero"
             print("Answer: ", end = "")
             print(answer)
 
