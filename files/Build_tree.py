@@ -2,23 +2,25 @@ from files.Tree_Nodes import *
 from queue import LifoQueue
 
 def expr(prev_precedence):
-    lhs = term(prev_precedence)
+    lhs = term()
     while(len(lexeme_list) > 0):
         op = lexeme_list.pop(0)
-        current_precedence = precedence(op)
         if(op == "RPAREN"):
             break
+        current_precedence = precedence(op)
         if(current_precedence < prev_precedence):
+            lexeme_list.insert(0, op)
             break
-        if(association(op) == "left"):
-            rhs = expr(current_precedence + 1)
-        else:
-            rhs = expr(current_precedence)
-        lhs = ExpressionNode(op, lhs, rhs)
+        elif(len(lexeme_list) > 0):
+            if(association(op) == "left"):
+                rhs = expr(current_precedence + 1)
+            else:
+                rhs = expr(current_precedence)
+        lhs = ExpressionNode(op, lhs, rhs) 
     return lhs
 
 
-def term(current_precedence):
+def term():
     value = lexeme_list.pop(0)
     if(value[0:6] == "NUMBER"):
         return NumberNode(float(value[7:len(value) - 1]))
@@ -27,7 +29,8 @@ def term(current_precedence):
     elif(value == "E"):
         return NumberNode(e)
     elif(value == "LPAREN"):
-        return expr(-1)
+        node = expr(-1)
+        return node
         
 
 def precedence(op):
@@ -37,6 +40,8 @@ def precedence(op):
         return 1
     if(op == "POWER"):
         return 2
+    else:
+        return -1
 
 def association(op):
     if(op in {"PLUS", "MINUS", "TIMES", "DIVIDES"}):
@@ -44,5 +49,7 @@ def association(op):
     if(op in {"POWER"}):
         return "right"
 
-def build_tree(lexeme_list):
-    return expr(lexeme_list, 0, -1)
+def build_tree(list1):
+    global lexeme_list
+    lexeme_list = list1
+    return expr(-1)

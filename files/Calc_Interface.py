@@ -172,6 +172,8 @@ if __name__ != "__main__":
                 answer = evaluate(lexeme_tree)
             except ZeroDivisionError:
                 answer = "Cannot divide by zero"
+            if(isinstance(answer, float) and answer % 1 == 0.0):
+                answer = int(answer)
             print("Answer: ", end = "")
             print(answer)
 

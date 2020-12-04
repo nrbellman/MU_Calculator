@@ -11,7 +11,6 @@ def validate(lexeme_list):
             if(index[0:6] == "NUMBER"):
                 try:
                     float(index[7:len(index) - 1])
-                    num_of_nums += 1
                 except ValueError:
                     return "Invalid number entered"
             if(prev_item == "RPAREN" and index[0:6] == "NUMBER"):
@@ -32,6 +31,8 @@ def validate(lexeme_list):
                 return "RPAREN cannot follow Operator"
             if(not (index in {"PLUS", "MINUS", "TIMES", "DIVIDES", "POWER"})):
                 prev_isop = False
+                if(not(index in {"RPAREN", "LPAREN"})):
+                    num_of_nums += 1
             if(index == "LPAREN"):
                 prev_isLparen = True
             if(prev_isLparen == True and (index in {"PLUS", "MINUS", "TIMES", "DIVIDES", "POWER"})):
