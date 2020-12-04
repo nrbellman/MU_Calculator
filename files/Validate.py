@@ -5,17 +5,13 @@ def validate(lexeme_list):
         prev_isop = False
         prev_isLparen = False
         prev_item = ""
+        num_of_op = 0
+        num_of_nums = 0
         for index in lexeme_list:
-            if(index == "RPAREN"):
-                if(lparen_present == 0):
-                    return "RPAREN without LPAREN"
-                else:
-                    lparen_present -= 1
-            if(index == "LPAREN"):
-                lparen_present += 1
             if(index[0:6] == "NUMBER"):
                 try:
                     float(index[7:len(index) - 1])
+                    num_of_nums += 1
                 except ValueError:
                     return "Invalid number entered"
             if(prev_item == "RPAREN" and index[0:6] == "NUMBER"):
@@ -31,6 +27,7 @@ def validate(lexeme_list):
                     return "Operator cannot follow Operator"
                 elif(prev_isop == False):
                     prev_isop = True
+                    num_of_op += 1
             if(prev_isop == True and index == "RPAREN"):
                 return "RPAREN cannot follow Operator"
             if(not (index in {"PLUS", "MINUS", "TIMES", "DIVIDES", "POWER"})):
@@ -42,8 +39,17 @@ def validate(lexeme_list):
             elif(index != "LPAREN"):
                 prev_isLparen = False
             prev_item = index
+            if(index == "RPAREN"):
+                if(lparen_present == 0):
+                    return "RPAREN without LPAREN"
+                else:
+                    lparen_present -= 1
+            if(index == "LPAREN"):
+                lparen_present += 1
         if(prev_item == ""):
             return "No input"
+        if(num_of_nums - num_of_op != 1):
+            return "Incomplete Expression"
         if(not(prev_item[0:6] in {"NUMBER", "E", "PI", "RPAREN"})):
             return "Cannot end with operator"
         if(lparen_present != 0):
