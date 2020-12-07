@@ -21,8 +21,12 @@
 if __name__ != "__main__":
 
     from files.Lexical_Analyzer import analyze
+    from files.Validate import validate
+    from files.Build_tree import *
+    from files.Evaluate import evaluate
     import tkinter as tk
     import tkinter.font as tk_font
+
 
     # Window Initialization
     calc = tk.Tk()
@@ -142,6 +146,8 @@ if __name__ != "__main__":
         # Returns the screen to a read-only state.
         calc_screen.config(state = "readonly")
 
+    
+
     def calc_evaluate():
         """
         TODO: Implement the expression evaluation part of the calculator
@@ -150,19 +156,37 @@ if __name__ != "__main__":
 
         lexeme_list = analyze(input_list)
 
-        answer = ["123123"]
-        print("Answer: ", end = "")
-        print(answer)
-        is_answered = True
+        check = validate(lexeme_list)
 
-        input_clear()
-        # Changes the state of the calculator screen from a read-only state to 
-        # a normal state for input.
-        calc_screen.config(state = "normal")
-        # Displays the evaluated
-        calc_screen.insert("end", answer)
-        # Returns the screen to a read-only state.
-        calc_screen.config(state = "readonly")
+        if(check != "passed"):
+            input_clear()
+            calc_screen.config(state = "normal")
+            # Adds the added symbol to the screen.
+            calc_screen.insert("end", check)
+            # Returns the screen to a read-only state.
+            calc_screen.config(state = "readonly")
+            is_answered = True
+        else:
+            lexeme_tree = build_tree(lexeme_list)
+            try:
+                answer = evaluate(lexeme_tree)
+            except ZeroDivisionError:
+                answer = "Cannot divide by zero"
+            if(isinstance(answer, float) and answer % 1 == 0.0):
+                answer = int(answer)
+            print("Answer: ", end = "")
+            print(answer)
+
+            input_clear()
+            # Changes the state of the calculator screen from a read-only state to 
+            # a normal state for input.
+            calc_screen.config(state = "normal")
+            # Displays the evaluated
+            calc_screen.insert("end", answer)
+            # Returns the screen to a read-only state.
+            calc_screen.config(state = "readonly")
+            is_answered = True
+
 
     def virtual_press(button):
         """ 
