@@ -4,10 +4,19 @@
 #   Author(s): Nicholas Bellman
 #   Date Modified: 2020-11-19
 #   
-#   Scans characters from an input list, appropriately assigns them to a
+#   Scans characters from an input list, appropriately assigns them to a       
 #   lexeme, and compiles the lexemes into a list.
 #
 def analyze(input_list):
+    """
+    [summary]
+
+    Args:
+        input_list (list): [description]
+
+    Returns:
+        list: [description]
+    """
 
     print("\n|-----File: Lexical_Analyzer-----|\n")
     
